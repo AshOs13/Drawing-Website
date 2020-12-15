@@ -1,6 +1,10 @@
 
-let drawShape = 0
+
 let drawSize = 1
+let currentColorCode = '#000000'
+let currentListColorCode = '#000000'
+let colorList = []
+let colorNumber = -1
 let drawColor = 11
 let background = 0
 let x = 1
@@ -49,11 +53,39 @@ function yesNo() {
   bPressed = 1
 }
 
+function back() {
+  if (colorNumber > 0) {
+  colorNumber = colorNumber - 1
+  console.log('Undid color')
+  currentListColorCode = colorList[colorNumber]
+  }
+  else {
+    console.log(`Cannot undo color (${colorList.length} in list)`)
+  }
+}
+
+function forward() {
+  if (colorNumber < colorList.length - 1) {
+    colorNumber = colorNumber + 1
+    console.log('Redid color')
+    currentListColorCode = colorList[colorNumber]
+  }
+  else {
+    console.log(`Cannot redo color (${colorList.length} in list)`)
+  }
+}
+
 function draw() {
   if (bPressed === 1) {
-    let currentColorCode = prompt("Please enter a hexadecimal color code." , "#FFFF00")
+    currentColorCode = prompt("Please enter a hexadecimal color code." , "#FFFF00")
   console.log(`your current color code is ${currentColorCode}`)
-  fill(currentColorCode) // fill ('')
+  drawColor = 15
+  colorNumber = colorNumber + 1
+  colorList.push(currentColorCode)
+
+  currentListColorCode = colorList[colorNumber]
+  console.log(`list color = ${currentListColorCode}`)
+ 
   bPressed = 0
   }
   noStroke()
@@ -116,6 +148,10 @@ else if (mouseIsPressed) {
   }
   else if (drawColor === 14) {
     fill('#A9C5C4')
+    circle(mouseX, mouseY, 10*drawSize)
+  }
+  else if (drawColor === 15) {
+    fill(currentListColorCode)
     circle(mouseX, mouseY, 10*drawSize)
   }
 }
