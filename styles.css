@@ -1,0 +1,11 @@
+body {
+    background-color:rgb(169, 197, 196);
+}
+
+.YES {
+    opacity: 100%;
+}
+    
+.NO {
+    opacity: 50%;
+}
